@@ -1,5 +1,6 @@
 #include "island.h"
 
+/* returns a count of the number of 1 entries in grid */
 int kntmon(int grid[N][N])
 {
 

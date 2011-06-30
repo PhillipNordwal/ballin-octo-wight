@@ -19,8 +19,14 @@
 EXTERN const int write_ginfo INIT(1);
 EXTERN FILE *ginfo_file;
 
-void addmon(int grid[N][N]);
-int kntmon(int grid[N][N]);
-void diffone(int grid[N][N]);
-void walk(int i,int j, int grid[N][N]);
+/* increments a random grid entry */
+void addmon(int grid[N][N]); 
+/* returns a count of the number of 1 entries in grid */
+int kntmon(int grid[N][N]); 
+/* select a random cell that contains a 1, zero it and increment its neighbors */
+void diffone(int grid[N][N]); 
+/* opens a file ginfo.N, if it already exists search for the first open
+   option of the form ginfo.N.i and open it into the global ginfo_file */
 void open_files(void);
+/* increment one of the cells 4-neighbors and zero the cell */
+void walk(int i,int j, int grid[N][N]); 

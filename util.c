@@ -6,7 +6,8 @@
 #include "island.h"
 
 
-
+/* opens a file ginfo.N, if it already exists search for the first open
+   option of the form ginfo.N.i and open it into the global ginfo_file */
 void open_files(void)
 {
         char fname[256];

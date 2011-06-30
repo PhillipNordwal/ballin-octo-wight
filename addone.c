@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include "island.h"
 
-
+/* increments a random grid entry */
 void addmon(int grid[N][N])
 {
 
