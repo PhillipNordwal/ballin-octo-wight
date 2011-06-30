@@ -30,3 +30,4 @@ void diffone(int grid[N][N]);
 void open_files(void);
 /* increment one of the cells 4-neighbors and zero the cell */
 void walk(int i,int j, int grid[N][N]); 
+/* vim: set ts=2 sw=2: */

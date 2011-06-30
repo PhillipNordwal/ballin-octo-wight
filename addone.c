@@ -12,3 +12,4 @@ void addmon(int grid[N][N])
 
 	grid[x][y] += 1;
 }	
+/* vim: set ts=2 sw=2: */

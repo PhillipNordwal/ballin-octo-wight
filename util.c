@@ -10,22 +10,23 @@
    option of the form ginfo.N.i and open it into the global ginfo_file */
 void open_files(void)
 {
-        char fname[256];
-        int i;
-        struct stat st;
+	char fname[256];
+	int i;
+	struct stat st;
 
-        if(write_ginfo) {
-                snprintf(fname, 256, "ginfo.%d", N);
-                for(i=0; stat(fname, &st) == 0; i++) {
-                        snprintf(fname, 256, "ginfo.%d.%d", N, i);
-                }
+	if(write_ginfo) {
+		snprintf(fname, 256, "ginfo.%d", N);
+		for(i=0; stat(fname, &st) == 0; i++) {
+			snprintf(fname, 256, "ginfo.%d.%d", N, i);
+		}
 
-                ginfo_file = fopen(fname, "w");
+		ginfo_file = fopen(fname, "w");
 
-                if(!ginfo_file) {
-                        perror("Cannot open ginfo file");
-                        exit(1);
-                } 
-        }
+		if(!ginfo_file) {
+			perror("Cannot open ginfo file");
+			exit(1);
+		} 
+	}
 
 }
+/* vim: set ts=2 sw=2: */
