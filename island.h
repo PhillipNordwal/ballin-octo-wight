@@ -14,7 +14,7 @@
 #endif
 
 
-#define N 800
+#define N 10
 
 EXTERN const int write_ginfo INIT(1);
 EXTERN FILE *ginfo_file;

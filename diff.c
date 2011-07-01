@@ -20,8 +20,6 @@ void diffone(int grid[N][N])
 			if(grid[i][j]==1) iwalk=0;
 		}
 	}
-	/* i = N now */
-	/* j = N now */
 
 	while(iwalk==0){
 		r = drand48()*(double)(N);
@@ -35,6 +33,31 @@ void diffone(int grid[N][N])
 			iwalk = 1;
 		}
 	}
+}
+
+void nordwalldiffone(int grid[N][N])
+{
+	int i, j, x, y, list_random_variable, count;
+	/* list to store cell indexes in */
+	int list[2][N*N];
+	
+	/* count of cells in grid whose value is equal to 1 */
+	count=0;
+	for(i=0;i<N;i++){
+		for(j=0;j<N;j++){
+			/* if the value is 1, save its index and increment count */
+			if(grid[i][j]==1){
+				list[0][count]=i;
+				list[1][count]=j;
+				count++;
+			}
+		}
+	}
+	
+	list_random_variable = (int) (drand48()*((double) count));
+	x = list[0][list_random_variable];
+	y = list[1][list_random_variable];
+	walk(x,y,grid);
 }
 
 /* increment one of the cells 4-neighbors and zero the cell */
