@@ -21,7 +21,6 @@ int main(void)
 	srand48(utime);
 	/* should save utime for reproducability */
 
-	open_files();
 
 	/* should save starting values of N, F, tau, knt for reproducability */
 	F = 0.00000001;
@@ -40,8 +39,8 @@ int main(void)
 	}
 
 	i = 0;
-/* 	while (F*t<0.20)  { */
-	while (i<1000)  {
+	while (F*t<0.20)  { 
+/*	while (i<1000)  { */
 		pf = F/(F+n/(L*L*tau));
 		p=drand48();
 		if(p<pf) {
@@ -52,8 +51,10 @@ int main(void)
 
 		t += 1.0/(F*L*L + n/tau);
 		i++;
+		//if (i%(1<<11)==0) printf("%f\n",t*F);
 	}
 
+	open_files();
 	for (i=0;i<N;i++) {
 		for (j=0;j<N;j++) {
 			if(grid[i][j] != 0) fprintf(ginfo_file,"%d	%d	%d\n",i,j,grid[i][j]);
