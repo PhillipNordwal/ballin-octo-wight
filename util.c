@@ -6,27 +6,19 @@
 #include "island.h"
 
 
-/* opens a file ginfo.N, if it already exists search for the first open
-   option of the form ginfo.N.i and open it into the global ginfo_file */
-void open_files(void)
+/* opens a unique file of the format ginfo_N_termdouble_XXXXXX to the file 
+ * stream ginfo_file */
+void open_files(double term)
 {
-	char fname[256];
-	int i;
-	struct stat st;
+	int fd;
+	char fnametemplate[256];
+	snprintf(fnametemplate, 256, "ginfo_%d_%.3f_XXXXXX", N, term);
+	fd = mkstemp(fnametemplate);
+	ginfo_file = fdopen(fd, "w");
 
-	if(write_ginfo) {
-		snprintf(fname, 256, "ginfo.%d", N);
-		for(i=0; stat(fname, &st) == 0; i++) {
-			snprintf(fname, 256, "ginfo.%d.%d", N, i);
-		}
+}
 
-		ginfo_file = fopen(fname, "w");
-
-		if(!ginfo_file) {
-			perror("Cannot open ginfo file");
-			exit(1);
-		} 
-	}
-
+void checkpoint(void)
+{
 }
 /* vim: set ts=2 sw=2: */

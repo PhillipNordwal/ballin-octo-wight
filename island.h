@@ -25,9 +25,9 @@ void addmon(int grid[N][N]);
 int kntmon(int grid[N][N]); 
 /* select a random cell that contains a 1, zero it and increment its neighbors */
 void diffone(int grid[N][N]); 
-/* opens a file ginfo.N, if it already exists search for the first open
-   option of the form ginfo.N.i and open it into the global ginfo_file */
-void open_files(void);
+/* opens a unique file of the format ginfo_N_termdouble_XXXXXX to the file 
+ * stream ginfo_file */
+void open_files(double term);
 /* increment one of the cells 4-neighbors and zero the cell */
 void walk(int i,int j, int grid[N][N]); 
 /* vim: set ts=2 sw=2: */

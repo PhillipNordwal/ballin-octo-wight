@@ -54,7 +54,7 @@ int main(void)
 		//if (i%(1<<11)==0) printf("%f\n",t*F);
 	}
 
-	open_files();
+	open_files(0.20);
 	for (i=0;i<N;i++) {
 		for (j=0;j<N;j++) {
 			if(grid[i][j] != 0) fprintf(ginfo_file,"%d	%d	%d\n",i,j,grid[i][j]);
