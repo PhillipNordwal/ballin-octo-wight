@@ -1,33 +1,25 @@
 #include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
 
-/* The following block of code allows this file to work as a
- * header file for most files (letting them know about extern
- * variables), but actually declare the variables if MAIN is
- * defined. */
-
-#ifdef MAIN
-  #define EXTERN
-  #define INIT(x) =x
-#else
-  #define EXTERN extern
-  #define INIT(x)
-#endif
-
-
-#define N 10
-
-EXTERN const int write_ginfo INIT(1);
-EXTERN FILE *ginfo_file;
+#define N 14
 
 /* increments a random grid entry */
 void addmon(int grid[N][N]); 
 /* returns a count of the number of 1 entries in grid */
 int kntmon(int grid[N][N]); 
-/* select a random cell that contains a 1, zero it and increment its neighbors */
+/* select a random cell that contains a 1 zero it and increment its neighbors */
 void diffone(int grid[N][N]); 
-/* opens a unique file of the format ginfo_N_termdouble_XXXXXX to the file 
- * stream ginfo_file */
-void open_files(double term);
+/* opens a unique file ginfo_N_termdouble_XXXXXX and writes grid to it */
+void write_file(double term, int grid[N][N]);
 /* increment one of the cells 4-neighbors and zero the cell */
 void walk(int i,int j, int grid[N][N]); 
+
+/* setup signal handlers */
+void setup_signals(void);
+/* catch a signal and output the grid to stderr */
+void CatchUSR1(int signum);
+/* catch a signal and output the grid to dump_ginfo_N_XXXXXX */
+void CatchNDump(int signum);
+
 /* vim: set ts=2 sw=2: */

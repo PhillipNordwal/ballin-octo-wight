@@ -6,7 +6,7 @@
 #define MAIN
 #include"island.h"
 
-//FILE *f1,*f2,*f3;
+int grid[N][N];
 
 int main(void)
 {
@@ -14,13 +14,17 @@ int main(void)
 	int i,j,iflag,utime,n;
 	long ltime;
 	double F,tau,p,pf,pd,L,t,sum;
-	int knt,grid[N][N];
+	int knt;
+	int passed_boundary;
+	
+	setup_signals();
 
 	ltime=time(NULL);
 	utime=(unsigned int) ltime/2;
 	srand48(utime);
 	/* should save utime for reproducability */
 
+	passed_boundary=0;
 
 	/* should save starting values of N, F, tau, knt for reproducability */
 	F = 0.00000001;
@@ -39,6 +43,9 @@ int main(void)
 	}
 
 	i = 0;
+	addmon(grid);
+	addmon(grid);
+	n = kntmon(grid);
 	while (F*t<0.20)  { 
 /*	while (i<1000)  { */
 		pf = F/(F+n/(L*L*tau));
@@ -52,15 +59,13 @@ int main(void)
 		t += 1.0/(F*L*L + n/tau);
 		i++;
 		//if (i%(1<<11)==0) printf("%f\n",t*F);
-	}
-
-	open_files(0.20);
-	for (i=0;i<N;i++) {
-		for (j=0;j<N;j++) {
-			if(grid[i][j] != 0) fprintf(ginfo_file,"%d	%d	%d\n",i,j,grid[i][j]);
-			//	sum += grid[i][j];
+		if (!passed_boundary && F*t>0.15) {
+			write_file(0.15, grid);
+			passed_boundary = 1;
 		}
 	}
+	write_file(0.20, grid);
+
 
 	//	printf("#  %f\n",sum/(L*L));
 	return 0;
