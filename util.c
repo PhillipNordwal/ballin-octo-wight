@@ -5,7 +5,9 @@
 #include <sys/stat.h>
 #include "island.h"
 
+#define ALARMTIME 14400
 extern int grid[N][N];
+
 
 /* opens a unique file ginfo_N_termdouble_XXXXXX and writes grid to it */
 void write_file(double term, int grid[N][N])
@@ -29,6 +31,7 @@ void write_file(double term, int grid[N][N])
  * CatchUSR1 for SIGINT
  * CatchNDump for USR2
  * CatchNDump for SIGTERM 
+ * CatchNDump for SIGALRM 
  * CatchNDump for SIGHUP 
  * CatchNDump for SIGINT */
 void setup_signals(void)
@@ -38,6 +41,8 @@ void setup_signals(void)
 	signal(SIGUSR2, CatchNDump);
 	signal(SIGHUP, CatchNDump);
 	signal(SIGTERM, CatchNDump);
+	signal(SIGALRM, CatchNDump);
+	alarm(ALARMTIME);
 }
 
 /* catch a USR1 signal */
@@ -67,8 +72,8 @@ void CatchNDump(int signum)
 		}
 	}
 	fclose(ginfo_file);
-	if (signum == SIGHUP || signum == SIGTERM)
-		kill(getpid(), SIGKILL);
+	if (signum == SIGHUP || signum == SIGTERM) kill(getpid(), SIGKILL);
+	if (signum == SIGALRM) alarm(ALARMTIME);
 }
 /* vim: set ts=2 sw=2: */
 	
