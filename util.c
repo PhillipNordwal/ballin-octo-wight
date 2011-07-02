@@ -5,7 +5,6 @@
 #include <sys/stat.h>
 #include "island.h"
 
-#define ALARMTIME 14400
 extern int grid[N][N];
 
 
@@ -26,14 +25,7 @@ void write_file(double term, int grid[N][N])
 	fclose(ginfo_file);
 }
 
-/* setup signal handlers 
- * CatchUSR1 for USR1
- * CatchUSR1 for SIGINT
- * CatchNDump for USR2
- * CatchNDump for SIGTERM 
- * CatchNDump for SIGALRM 
- * CatchNDump for SIGHUP 
- * CatchNDump for SIGINT */
+/* setup signal handlers and an alarm  */
 void setup_signals(void)
 {
 	signal(SIGUSR1, CatchUSR1);
@@ -57,13 +49,14 @@ void CatchUSR1(int signum)
 	fflush(stderr);
 }
 
-/* opens a unique file dump_ginfo_N_XXXXXX and writes grid to it */
+/* opens a unique file dump_pid_ginfo_N_XXXXXX and writes grid to it */
 void CatchNDump(int signum)
 {
-	int fd, i, j;
+	int fd, i, j, my_pid;
 	char fnametemplate[256];
 	FILE *ginfo_file;
-	snprintf(fnametemplate, 256, "dump_ginfo_%d_XXXXXX", N);
+	my_pid = getpid();
+	snprintf(fnametemplate, 256, "dump_%d_ginfo_%d_XXXXXX", my_pid, N);
 	fd = mkstemp(fnametemplate);
 	ginfo_file = fdopen(fd, "w");
 	for (i=0;i<N;i++) {
@@ -72,7 +65,7 @@ void CatchNDump(int signum)
 		}
 	}
 	fclose(ginfo_file);
-	if (signum == SIGHUP || signum == SIGTERM) kill(getpid(), SIGKILL);
+	if (signum == SIGHUP || signum == SIGTERM) kill(my_pid, SIGKILL);
 	if (signum == SIGALRM) alarm(ALARMTIME);
 }
 /* vim: set ts=2 sw=2: */
