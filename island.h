@@ -1,11 +1,33 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
 #include <signal.h>
 #include <unistd.h>
 
-#define ALARMTIME 14400
+/* The following block of code allows this file to work as a
+ * header file for most files (letting them know about extern
+ * variables), but actually declare the variables if MAIN is
+ * defined. */
+
+#ifdef MAIN
+  #define EXTERN
+  #define INIT(x) =x
+#else
+  #define EXTERN extern
+  #define INIT(x)
+#endif
 
 #define N 14
 
+EXTERN int count;
+EXTERN int grid[N][N];
+EXTERN int list[2][N*N];
+
+#define ALARMTIME 14400
+
+
+/* increments a grid entry */
+void addone(int x, int y, int grid[N][N]); 
 /* increments a random grid entry */
 void addmon(int grid[N][N]); 
 /* returns a count of the number of 1 entries in grid */

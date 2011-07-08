@@ -7,7 +7,6 @@
 
 extern int grid[N][N];
 
-
 /* opens a unique file ginfo_N_termdouble_XXXXXX and writes grid to it */
 void write_file(double term, int grid[N][N])
 {
