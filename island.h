@@ -26,8 +26,6 @@ EXTERN int list[2][N*N];
 #define ALARMTIME 14400
 
 
-/* increments a grid entry */
-void addone(int x, int y, int grid[N][N]); 
 /* increments a random grid entry */
 void addmon(int grid[N][N]); 
 /* returns a count of the number of 1 entries in grid */
