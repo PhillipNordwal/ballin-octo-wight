@@ -30,7 +30,7 @@ EXTERN unsigned long wcount;
 /* increments a random grid entry */
 void addmon(int grid[N][N]); 
 /* returns a count of the number of 1 entries in grid */
-int kntmon(int grid[N][N]); 
+//int kntmon(int grid[N][N]); 
 /* select a random cell that contains a 1 zero it and increment its neighbors */
 void diffone(int grid[N][N]); 
 /* opens a unique file ginfo_N_termdouble_XXXXXX and writes grid to it */

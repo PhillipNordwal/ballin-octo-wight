@@ -18,7 +18,6 @@ int main(void)
 
   setup_signals();
   count=0;
-  wcount=0;
 
   ltime=time(NULL);
   utime=(unsigned int) ltime/2;
@@ -45,27 +44,18 @@ int main(void)
 
   i = 0;
   addmon(grid);
-  n = kntmon(grid);
-  assert(count==n);
   addmon(grid);
-  n = kntmon(grid);
-  assert(count==n);
   while (F*t<0.20)  { 
     /*	while (i<1000)  { */
-    pf = F/(F+n/(L*L*tau));
+    pf = F/(F+count/(L*L*tau));
     p=drand48();
     if(p<pf) {
       addmon(grid);
-      n = kntmon(grid);
-      assert(count==n);
     } else {
       diffone(grid);
-      n = kntmon(grid);
-      //fprintf(stderr, "%d %d\n", count, n);
-      assert(count==n);
     }
 
-    t += 1.0/(F*L*L + n/tau);
+    t += 1.0/(F*L*L + count/tau);
     i++;
     //if (i%(1<<11)==0) printf("%f\n",t*F);
     if (!passed_boundary && F*t>0.15) {
@@ -73,7 +63,6 @@ int main(void)
       passed_boundary = 1;
     }
   }
-  assert(count==n);
   write_file(0.20, grid);
 
 
