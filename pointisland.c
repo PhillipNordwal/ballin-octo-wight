@@ -18,6 +18,7 @@ int main(void)
 
   setup_signals();
   count=0;
+  wcount=0;
 
   ltime=time(NULL);
   utime=(unsigned int) ltime/2;
@@ -60,7 +61,7 @@ int main(void)
     } else {
       diffone(grid);
       n = kntmon(grid);
-      fprintf(stderr, "%d %d\n", count, n);
+      //fprintf(stderr, "%d %d\n", count, n);
       assert(count==n);
     }
 

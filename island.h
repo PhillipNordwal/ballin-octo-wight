@@ -17,11 +17,12 @@
   #define INIT(x)
 #endif
 
-#define N 14
+#define N 40
 
 EXTERN int count;
 EXTERN int grid[N][N];
 EXTERN int list[2][N*N];
+EXTERN unsigned long wcount;
 
 #define ALARMTIME 14400
 

@@ -17,7 +17,7 @@ void addmon(int grid[N][N])
   /* check to see if we are removing a mobile cell */
   } else if (grid[x][y] == 1) {
     /* find the cell in the list to remove */
-    for (i=0; list[0][i] != x && list[1][i] != y; i++);
+    for (i=0; list[0][i] != x || list[1][i] != y; i++);
     for (; i < count; i++) {
       list[0][i] = list[0][i+1];
       list[1][i] = list[1][i+i];

@@ -4,24 +4,19 @@
 void diffone(int grid[N][N])
 {
 
-	int iwalk,x,y,i,j;
-	double r,s;
+	int iwalk,x,y,i,j, r;
 
 	i = 0;
 	j = 0;
 	iwalk = 1;
 	/* if any of the cells are 1  set iwalk=0 */
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
-			if(grid[i][j]==1) iwalk=0;
-		}
-	}
+  if (count > 0) iwalk=0;
+  r = (int)(drand48()*count);
+  //printf("%d\n", r);
 
 	while(iwalk==0){
-		r = drand48()*(double)(N);
-		s = drand48()*(double)(N);
-		x = (int)(r);
-		y = (int)(s);
+		x = (int)(drand48()*(double)(N));
+		y = (int)(drand48()*(double)(N));
 
 		/* pick a random cell, set it to zero and increment a neighbor */
 		if(grid[x][y] == 1) {
@@ -34,6 +29,7 @@ void diffone(int grid[N][N])
 /* increment one of the cells 4-neighbors and zero the cell */
 void walk(int i,int j, int grid[N][N])
 {
+  wcount++;
 
 	int max, x, y, l;
 	double p;
@@ -61,7 +57,7 @@ void walk(int i,int j, int grid[N][N])
 	}
 
   /* find the position after the old position in the list */
-  for (l = 0; list[0][l] != i && list[1][l] != j; l++);
+  for (l = 0; list[0][l] != i || list[1][l] != j; l++);
 
   /* check to see that we aren't adding to an island */
   if (grid[x][y] == 0){
@@ -75,7 +71,7 @@ void walk(int i,int j, int grid[N][N])
     }
     count--;
     /* remove the entry that was collided with */
-    for (l=0; list[0][l] != x && list[1][l] != y; l++);
+    for (l=0; list[0][l] != x || list[1][l] != y; l++);
     for (; l < count; l++) {
       list[0][l] = list[0][l+1];
       list[1][l] = list[1][l+1];
