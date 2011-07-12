@@ -68,4 +68,4 @@ void CatchNDump(int signum)
 	if (signum == SIGALRM) alarm(ALARMTIME);
 }
 /* vim: set ts=2 sw=2: */
-	
+

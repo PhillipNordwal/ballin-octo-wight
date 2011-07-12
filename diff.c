@@ -4,14 +4,10 @@
 void diffone(int grid[N][N])
 {
 
-	int x,y,i,j, r;
+	int r;
 
-	i = 0;
-	j = 0;
   r = (int)(drand48()*count);
-  x = list[0][r];
-  y = list[1][r];
-  walk(x,y,grid);
+  walk(list[0][r], list[1][r], grid);
 }
 
 /* increment one of the cells 4-neighbors and zero the cell */
@@ -21,7 +17,6 @@ void walk(int i,int j, int grid[N][N])
 	double p;
 
 	max = N-1;
-
 	p = drand48();
 	//	printf("walk	%f\n",p);
 

@@ -17,7 +17,7 @@
   #define INIT(x)
 #endif
 
-#define N 40
+#define N 800
 
 EXTERN int count;
 EXTERN int grid[N][N];
