@@ -17,8 +17,9 @@ void walk(int i,int j, int grid[N][N])
 	double p;
 
 	max = N-1;
+  x = 0;
+  y = 0;
 	p = drand48();
-	//	printf("walk	%f\n",p);
 
 	if(p<=0.25) { /* increment the cell to the right */
 		if(i+1>max) { x = 0;      y = j; }

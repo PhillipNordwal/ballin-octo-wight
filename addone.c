@@ -24,7 +24,7 @@ void addmon(int grid[N][N])
     }
     count--;
   } else if (grid[x][y] > 1) {
-    // remove the item from the list
+    /* remove the item from the list */
   }
 	grid[x][y] += 1;
 

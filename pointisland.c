@@ -12,7 +12,7 @@ int main(void)
 
   int i,j,iflag,utime,n;
   long ltime;
-  double F,tau,p,pf,pd,L,t,sum;
+  double F,tau,p,pf,L,t,sum;
   int knt;
   int passed_boundary;
 
@@ -21,7 +21,9 @@ int main(void)
 
   ltime=time(NULL);
   utime=(unsigned int) ltime/2;
-  //srand48(utime);
+  /*
+   * srand48(utime);
+  */
   srand48(2);
   /* should save utime for reproducability */
 
@@ -57,7 +59,6 @@ int main(void)
 
     t += 1.0/(F*L*L + count/tau);
     i++;
-    //if (i%(1<<11)==0) printf("%f\n",t*F);
     if (!passed_boundary && F*t>0.15) {
       write_file(0.15, grid);
       passed_boundary = 1;
@@ -65,8 +66,6 @@ int main(void)
   }
   write_file(0.20, grid);
 
-
-  //	printf("#  %f\n",sum/(L*L));
   return 0;
   }
 
