@@ -10,11 +10,13 @@
 int main(void)
 {
 
-  int i,j,iflag,utime,n;
+  int i,j,utime;
   long ltime;
-  double F,tau,p,pf,L,t,sum;
-  int knt;
+  double p,pf,t;
   int passed_boundary;
+  const double F = 0.00000001;
+  const double tau = 1.0;
+  const double L = (double)(N);
 
   setup_signals();
   count=0;
@@ -28,15 +30,7 @@ int main(void)
   /* should save utime for reproducability */
 
   passed_boundary=0;
-  /* should save starting values of N, F, tau, knt for reproducability */
-  F = 0.00000001;
-  tau = 1.0;
-  n = 0;
-  L = (double)(N);
-  iflag = 0;
   t = 0;
-  knt = 100;
-  sum = 0.0;
   /* initialize the grid to zeros */
   for (i=0;i<N;i++) {
     for (j=0;j<N;j++) {	
@@ -44,11 +38,7 @@ int main(void)
     }
   }
 
-  i = 0;
-  addmon(grid);
-  addmon(grid);
   while (F*t<0.20)  { 
-    /*	while (i<1000)  { */
     pf = F/(F+count/(L*L*tau));
     p=drand48();
     if(p<pf) {
@@ -58,7 +48,6 @@ int main(void)
     }
 
     t += 1.0/(F*L*L + count/tau);
-    i++;
     if (!passed_boundary && F*t>0.15) {
       write_file(0.15, grid);
       passed_boundary = 1;

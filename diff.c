@@ -17,25 +17,21 @@ void walk(int i,int j, int grid[N][N])
 	double p;
 
 	max = N-1;
-  x = 0;
-  y = 0;
+  x = i;
+  y = j;
 	p = drand48();
 
 	if(p<=0.25) { /* increment the cell to the right */
-		if(i+1>max) { x = 0;      y = j; }
-		else        { x = i+1;    y = j; }
+    x = (i+1)%N;
 	}
   else if(p>0.25 && p<=0.5) { /* increment the cell to the left */
-		if(i-1<0)   { x = max;    y = j; }
-		else        { x = i - 1;  y = j; }
+    x = (i-1+N)%N;
 	}
 	else if(p>0.5 && p<=0.75) { /* increment the cell to the bottom side */
-		if(j+1>max) { x = i;      y = 0; }
-		else        { x = i;      y = j + 1; }
+    y = (j+1)%N;
 	}
 	else if(p>0.75 && p<=1.0) { /* increment the cell to the top side */
-		if(j-1<0)   { x = i;      y = max; }
-		else        { x = i;      y = j - 1; }
+    y = (j-1+N)%N;
 	}
 
   /* find the position after the old position in the list */
