@@ -5,10 +5,10 @@
 void addmon(int grid[N][N])
 {
 
-	int x, y, i;
+  int x, y, i;
 
-	x = (int)(drand48()*N);
-	y = (int)(drand48()*N);
+  x = (int)(drand48()*N);
+  y = (int)(drand48()*N);
   /* check to see that we aren't adding to an island */
   if (grid[x][y] == 0){
     list[0][count]=x;
@@ -26,7 +26,7 @@ void addmon(int grid[N][N])
   } else if (grid[x][y] > 1) {
     /* remove the item from the list */
   }
-	grid[x][y] += 1;
+  grid[x][y] += 1;
 
 }	
 /* vim: set ts=2 sw=2: */

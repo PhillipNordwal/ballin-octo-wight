@@ -4,67 +4,92 @@
 void diffone(int grid[N][N])
 {
 
-	int r;
+  int r;
 
   r = (int)(drand48()*count);
   walk(list[0][r], list[1][r], grid);
 }
 
+long getrand() { return mrand48() &3 ; }
+
+void choose_direction(int i, int j, int *x, int *y)
+{
+  long p;
+	int a, b, c, d;
+  p = bitrand2();
+
+	/* the arithematic below is equivalent to this switch code  *
+  switch(p)
+  {
+    case 0: {*y = (j+1)%N; break; }   // inc to the bottom
+    case 1: {*x = (i+1)%N; break; }   // inc to the right
+    case 2: {*y = (j-1+N)%N; break; } // inc to the top
+    case 3: {*x = (i-1+N)%N; break; } // inc to the left
+  } 
+	*/
+	a = p&1;
+	b = p&2;
+	c = !a;
+	d = 1-b;
+	*x = (i+a*d+N)%N;
+	*y = (j+c*d+N)%N;
+}
+
+int find_list_position(int i, int j)
+{
+  int l;
+  /* find the position in the list being walked into */
+  for (l = 0; list[0][l] != i || list[1][l] != j; l++);
+  return l;
+}
+
 /* increment one of the cells 4-neighbors and zero the cell */
 void walk(int i,int j, int grid[N][N])
 {
-	int max, x, y, l;
-	double p;
+  int x, y, l;
 
-	max = N-1;
   x = i;
   y = j;
-	p = drand48();
 
-	if(p<=0.25) { /* increment the cell to the right */
-    x = (i+1)%N;
-	}
-  else if(p>0.25 && p<=0.5) { /* increment the cell to the left */
-    x = (i-1+N)%N;
-	}
-	else if(p>0.5 && p<=0.75) { /* increment the cell to the bottom side */
-    y = (j+1)%N;
-	}
-	else if(p>0.75 && p<=1.0) { /* increment the cell to the top side */
-    y = (j-1+N)%N;
-	}
-
-  /* find the position after the old position in the list */
-  for (l = 0; list[0][l] != i || list[1][l] != j; l++);
+  choose_direction(i, j, &x, &y);
+  l = find_list_position(i,j);
 
   /* check to see that we aren't adding to an island */
   if (grid[x][y] == 0){
+		/* their is no monomer in the new spot, update the monomer list to contain
+		 * the new spot*/
     list[0][l] = x;
     list[1][l] = y;
   } else if (grid[x][y] == 1) {
-    /* remove the old entry */
+    /* we are adding to an existing monomer, remove the old entry */
     for (; l < count; l++) {
+			/* we remove the old entry, by shifting the remaining list entries
+			 * back towards the beginning and update the monomer count */
       list[0][l] = list[0][l+1];
       list[1][l] = list[1][l+1];
     }
     count--;
-    /* remove the entry that was collided with */
-    for (l=0; list[0][l] != x || list[1][l] != y; l++);
+    /* we just collided with a monomer, look up its position in the list */
+    l = find_list_position(x,y);
     for (; l < count; l++) {
+			/* remove the collided entry from the list by shifting the remaining list
+			 * entries towards the beginning and update the monomer count */
       list[0][l] = list[0][l+1];
       list[1][l] = list[1][l+1];
     }
     count--;
   } else if (grid[x][y] > 1) {
-    /* remove the old entry */
+    /* we are adding to an existing monomer, remove the old entry */
     for (; l < count; l++) {
+			/* we remove the old entry, by shifting the remaining list entries
+			 * back towards the beginning and update the monomer count */
       list[0][l] = list[0][l+1];
       list[1][l] = list[1][l+1];
     }
     count--;
   }
-	grid[x][y] += 1;
-	grid[i][j] = 0;
+  grid[x][y] += 1;
+  grid[i][j] = 0;
 
 }
 /* vim: set ts=2 sw=2: */

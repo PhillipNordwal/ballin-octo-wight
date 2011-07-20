@@ -17,7 +17,7 @@
   #define INIT(x)
 #endif
 
-#define N 1024
+#define N 512
 
 EXTERN int count;
 EXTERN int grid[N][N];
@@ -43,5 +43,7 @@ void setup_signals(void);
 void CatchUSR1(int signum);
 /* opens a unique file dump_pid_ginfo_N_XXXXXX and writes grid to it */
 void CatchNDump(int signum);
+
+unsigned int bitrand2(void);
 
 /* vim: set ts=2 sw=2: */
