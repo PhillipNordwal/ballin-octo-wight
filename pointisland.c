@@ -9,18 +9,16 @@
 
 void update_t(double *pt)
 {
-  const double F = 0.00000001;
-  const double tau = 1.0;
-  const double L = (double)(N);
-  *pt += 1.0/(F*L*L + count/tau);
+  static const double F = 0.00000001;
+	static const double L = (double)(N);
+  *pt += 1.0/(L*L*F + count);
 }
 
 void update_pf(double *ppf)
 {
-  const double F = 0.00000001;
-  const double tau = 1.0;
-  const double L = (double)(N);
-  *ppf = F/(F+count/(L*L*tau));
+  static const double F = 0.00000001;
+	static const double L = (double)(N);
+  *ppf = F/(F+count/(L*L));
 
 }
 int main(void)
@@ -46,14 +44,15 @@ int main(void)
 
   passed_boundary=0;
   t = 0;
-  /* initialize the grid to zeros */
+  /* initialize the grid to zeros and rlist to -1 */
   for (i=0;i<N;i++) {
     for (j=0;j<N;j++) {	
       grid[i][j] = 0;
+      rlist[i][j] = -1;
     }
   }
 
-  while (F*t<0.20)  { 
+  while (t<20000000)  { 
     update_pf(&pf);
     p=drand48();
     if(p<pf) {
@@ -63,7 +62,7 @@ int main(void)
     }
 
     update_t(&t);
-    if (!passed_boundary && F*t>0.15) {
+    if (!passed_boundary && t>15000000) {
       write_file(0.15, grid);
       passed_boundary = 1;
     }
