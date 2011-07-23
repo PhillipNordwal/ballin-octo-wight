@@ -22,8 +22,6 @@
 EXTERN unsigned int seed;
 EXTERN int count;
 EXTERN int grid[N][N];
-/* rlist is a list index from x,y index lookup */
-EXTERN int rlist[N][N];
 EXTERN int list[2][N*N];
 EXTERN unsigned long wcount;
 

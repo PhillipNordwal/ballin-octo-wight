@@ -20,7 +20,6 @@ void addmon(int grid[N][N])
     for (; i < count; i++) {
       list[0][i] = list[0][i+1];
       list[1][i] = list[1][i+1];
-      rlist[list[0][i+1]][list[1][i+1]] = i;
     }
     count--;
   } 

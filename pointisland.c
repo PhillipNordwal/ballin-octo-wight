@@ -9,64 +9,63 @@
 
 void update_t(double *pt)
 {
-  static const double F = 0.00000001;
+	static const double F = 0.00000001;
 	static const double L = (double)(N);
-  *pt += 1.0/(L*L*F + count);
+	*pt += 1.0/(L*L*F + count);
 }
 
 void update_pf(double *ppf)
 {
-  static const double F = 0.00000001;
+	static const double F = 0.00000001;
 	static const double L = (double)(N);
-  *ppf = F/(F+count/(L*L));
+	*ppf = F/(F+count/(L*L));
 
 }
 int main(void)
 {
 
-  int i,j,utime;
-  long ltime;
-  double p,pf,t;
-  int passed_boundary;
+	int i,j,utime;
+	long ltime;
+	double p,pf,t;
+	int passed_boundary;
 
-  setup_signals();
-  count=0;
+	setup_signals();
+	count=0;
 
-  ltime=time(NULL);
-  utime=(unsigned int) ltime/2;
+	ltime=time(NULL);
+	utime=(unsigned int) ltime/2;
 	seed = utime;
 	printf("seed = %d\n", seed);
- // srand48(utime);
-  srand48(655646419);
+	// srand48(utime);
+	srand48(655646419);
 
-  passed_boundary=0;
-  t = 0;
-  /* initialize the grid to zeros and rlist to -1 */
-  for (i=0;i<N;i++) {
-    for (j=0;j<N;j++) {	
-      grid[i][j] = 0;
-      rlist[i][j] = -1;
-    }
-  }
+	passed_boundary=0;
+	t = 0;
+	/* initialize the grid to zeros */
+	for (i=0;i<N;i++) {
+		for (j=0;j<N;j++) {  
+			grid[i][j] = 0;
+		}
+	}
 
-  while (t<20000000)  { 
-    update_pf(&pf);
-    p=drand48();
-    if(p<pf) {
-      addmon(grid);
-    } else {
-      diffone(grid);
-    }
+	while (t<20000000)  { 
+		update_pf(&pf);
+		p=drand48();
+		if(p<pf) {
+			addmon(grid);
+		} else {
+			diffone(grid);
+		}
 
-    update_t(&t);
-    if (!passed_boundary && t>15000000) {
-      write_file(0.15, grid);
-      passed_boundary = 1;
-    }
-  }
-  write_file(0.20, grid);
+		update_t(&t);
+		if (!passed_boundary && t>15000000) {
+			write_file(0.15, grid);
+			passed_boundary = 1;
+		}
+	}
+	write_file(0.20, grid);
 
-  return 0;
-  }
+	return 0;
+}
 
-  /* vim: set ts=2 sw=2: */
+/* vim: set ts=2 sw=2: */
