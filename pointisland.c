@@ -36,8 +36,7 @@ int main(void)
 	utime=(unsigned int) ltime/2;
 	seed = utime;
 	printf("seed = %d\n", seed);
-	// srand48(utime);
-	srand48(655646419);
+	srand48(utime);
 
 	passed_boundary=0;
 	t = 0;
