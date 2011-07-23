@@ -19,6 +19,7 @@
 
 #define N 512
 
+EXTERN unsigned int seed;
 EXTERN int count;
 EXTERN int grid[N][N];
 /* rlist is a list index from x,y index lookup */

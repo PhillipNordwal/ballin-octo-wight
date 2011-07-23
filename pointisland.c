@@ -28,19 +28,16 @@ int main(void)
   long ltime;
   double p,pf,t;
   int passed_boundary;
-  const double F = 0.00000001;
 
   setup_signals();
   count=0;
 
   ltime=time(NULL);
   utime=(unsigned int) ltime/2;
-  /*
-   * srand48(utime);
-  */
-  srand48(2);
-  srand(2);
-  /* should save utime for reproducability */
+	seed = utime;
+	printf("seed = %d\n", seed);
+ // srand48(utime);
+  srand48(655646419);
 
   passed_boundary=0;
   t = 0;

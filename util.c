@@ -13,7 +13,7 @@ void write_file(double term, int grid[N][N])
 	int fd, i, j;
 	char fnametemplate[256];
 	FILE *ginfo_file;
-	snprintf(fnametemplate, 256, "ginfo_%d_%.3f_XXXXXX", N, term);
+	snprintf(fnametemplate, 256, "ginfo_%d_%.3f_%d_XXXXXX", N, term, seed);
 	fd = mkstemp(fnametemplate);
 	ginfo_file = fdopen(fd, "w");
 	for (i=0;i<N;i++) {
@@ -55,7 +55,7 @@ void CatchNDump(int signum)
 	char fnametemplate[256];
 	FILE *ginfo_file;
 	my_pid = getpid();
-	snprintf(fnametemplate, 256, "dump_%d_ginfo_%d_XXXXXX", my_pid, N);
+	snprintf(fnametemplate, 256, "dump_%d_ginfo_%d_%d_XXXXXX", my_pid, N, seed);
 	fd = mkstemp(fnametemplate);
 	ginfo_file = fdopen(fd, "w");
 	for (i=0;i<N;i++) {
