@@ -17,7 +17,7 @@
   #define INIT(x)
 #endif
 
-#define N 512
+#define N 8192
 
 EXTERN unsigned int seed;
 EXTERN int count;

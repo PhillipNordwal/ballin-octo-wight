@@ -5,5 +5,3 @@ all: pointisland.c addone.c diff.c util.c bitrand.c island.h
 	$(CC) pointisland.c addone.c diff.c util.c bitrand.c -lm -o Tisles
 test:
 	./Tisles
-clean:
-	rm ginf* *~
